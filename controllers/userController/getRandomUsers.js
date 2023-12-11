@@ -15,14 +15,27 @@ router.get('/getRandomUsers', authenticateToken, async (req, res) => {
         // Получить случайных пользователей, исключая текущего пользователя
         const randomUsers = await usersCollection.aggregate([
             { $match: { _id: { $ne: userId } } }, // Исключить текущего пользователя
-            { $sample: { size: 5 } }, // Выбрать случайных пользователей
+            { $sample: { size: 10 } }, // Выбрать случайных пользователей
             { $project: { _id: 1, username: 1, email: 1, profile: { profileImage: 1 } } } // Выбрать нужные поля
         ]).toArray();
-
         // Проверить отсутствие чатов между текущим пользователем и выбранными случайными пользователями
         const chatExistencePromises = randomUsers.map(async (randomUser) => {
             const chat = await chatsCollection.findOne({
-                participants: { $all: [userId, randomUser._id] }
+                $or: [
+                    {
+                        participants: { $all: [userId, randomUser._id] },
+                    },
+                    {
+                        $and: [
+                            {
+                                participantsIdForDelete: { $in: [userId, randomUser._id] },
+                            },
+                            {
+                                participants: { $in: [userId, randomUser._id] },
+                            },
+                        ],
+                    },
+                ],
             });
 
             return {
@@ -31,8 +44,8 @@ router.get('/getRandomUsers', authenticateToken, async (req, res) => {
             };
         });
 
-        const chatExistenceResults = await Promise.all(chatExistencePromises);
 
+        const chatExistenceResults = await Promise.all(chatExistencePromises);
         // Отфильтровать случайных пользователей, с которыми не существует чата
         const usersWithoutChat = randomUsers.filter((randomUser, index) => !chatExistenceResults[index].chatExists);
 

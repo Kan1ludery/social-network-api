@@ -13,14 +13,23 @@ const setupWebSocketIO = (app) => {
 
     app.set('socketIO', io); // Устанавливаем io в объект приложения Express
 
+    const userSocketMap = new Map();
+
     io.on('connection', (socket) => {
-        console.log('Новое соединение:', socket.id);
+        const userId = socket.handshake.auth.userId; // Получаем userId из handshake
+        socket.userId = userId; // Добавляем userId к объекту сокета
+        userSocketMap.set(userId, socket);
     });
-    io.on('disconnect', () => {
-        console.log('Пользователь отключился');
+    io.on('disconnect', (socket) => {
+        const userId = socket.userId; // Получаем userId из объекта сокета
+        if (userId) {
+            userSocketMap.delete(userId);
+        }
     });
 
-    return { server, io };
+    app.set('userSocketMap', userSocketMap); // Сохраняем Map в объекте приложения Express
+
+    return {server, io};
 };
 
-module.exports = { setupWebSocketIO };
+module.exports = {setupWebSocketIO};

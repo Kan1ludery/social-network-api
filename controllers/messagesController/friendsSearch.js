@@ -14,22 +14,29 @@ router.get('/friends-search', authenticateToken, async (req, res) => {
             return res.status(400).json({error: 'Не указано обязательное поле'});
         }
         query = sanitizeInput(query);
-        let searchField = 'username'; // По умолчанию ищем по имени
-        // Проверяем, соответствует ли введенное значение формату email
-        if (query.includes('@')) {
-            searchField = 'email';
+        // Создаем регулярное выражение для частичного совпадения
+        const regex = new RegExp(query, 'i'); // 'i' - игнорирование регистра
+
+        // Ищем пользователей, чьи имена или email соответствуют частичному совпадению с запросом
+        const results = await collection.find({
+            $or: [
+                { username: { $regex: regex } }, // Поиск по имени
+                { email: { $regex: regex } }, // Поиск по email
+            ],
+        }).toArray();
+
+        if (!results || results.length === 0) {
+            return res.status(400).json({ error: 'Таких пользователей не существует' });
         }
-        const results = await collection.findOne({[searchField]: query});
-        if (!results) {
-            return res.status(400).json({error: 'Такого пользователя не существует'});
-        }
-        const filteredResults = {
-            _id: results._id,
-            username: results.username,
-            email: results.email,
-            profileImage: results.profile.profileImage,
-        };
-        res.status(200).json([filteredResults]);
+        // Формируем отфильтрованный список найденных пользователей
+        const filteredResults = results.map((user) => ({
+            _id: user._id,
+            username: user.username,
+            email: user.email,
+            profileImage: user.profile.profileImage,
+        }));
+
+        res.status(200).json(filteredResults);
     } catch (error) {
         console.error('Ошибка при выполнении поиска друзей:', error);
         res.status(500).json({error: 'Ошибка при выполнении поиска друзей'});

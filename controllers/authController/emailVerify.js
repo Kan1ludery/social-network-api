@@ -48,7 +48,6 @@ const setupEmailVerification = () => {
                 { expiresIn: '1h' }
             );
             io.emit('emailVerified', { newToken }); // Отправляем событие
-            console.log(`Событие "emailVerified" было успешно отправлено клиенту ${user.username}`);
             res.send("Почта успешно подтверждена!");
 
         } catch (error) {

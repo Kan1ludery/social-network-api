@@ -10,8 +10,6 @@ const {setupWebSocketIO} = require("./Sockets/setupWebSocketIO");
 const app = express(); // Создание экземпляра приложения express
 const port = 3001; // Порт, на котором будет запущен сервер
 
-
-
 /** Установка всех побочных утилит */
 setupUtils(app, express)
 

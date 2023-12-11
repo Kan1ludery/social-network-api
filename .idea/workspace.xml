@@ -4,10 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed88ee92-63ff-4269-87a5-027ed4d8bfd9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="ed88ee92-63ff-4269-87a5-027ed4d8bfd9" name="Changes" comment="backupBack">
+      <change afterPath="$PROJECT_DIR$/controllers/messagesController/deleteFriendship.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controllers/messagesController/myDeletedChats.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controllers/messagesController/restoreAccessToChat.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sockets/setupWebSocketIO.js" beforeDir="false" afterPath="$PROJECT_DIR$/Sockets/setupWebSocketIO.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sockets/socketMessages.js" beforeDir="false" afterPath="$PROJECT_DIR$/Sockets/socketMessages.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/authController/emailVerify.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/authController/emailVerify.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/messagesController/addFriendRequest.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/messagesController/addFriendRequest.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/messagesController/friendsSearch.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/messagesController/friendsSearch.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/messagesController/messagesController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/messagesController/messagesController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/userController/getRandomUsers.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/userController/getRandomUsers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/1701626649516-VM7An1EJ6bVRWuByOFqgayLT9JPEdXwPVQ6jkKRNCuV1mTvhhfFIVnmeJrE_I78chlTIX4MShxIT5G_TP2dv7Pzp.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/1701737973246-GCJWpkYHGVj280rhvC2LApHKeMBtvSOm-rAJQh7Xu0630JmcDPpuHbld7wpjloUFP7uvvlCh.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +52,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "prob-finish-temp",
     "javascript.nodejs.core.library.configured.version": "20.3.1",
     "javascript.nodejs.core.library.typings.version": "20.3.1",
     "last_opened_file_path": "C:/Users/danil/Desktop/Frontend_learning/API/FirstAPI/controllers/userControllers",
@@ -50,7 +61,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editing.templates",
+    "settings.editor.selected.configurable": "project.scopes",
     "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2023.1.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   },
@@ -157,8 +168,22 @@
       <workItem from="1701610348392" duration="20271000" />
       <workItem from="1701727141918" duration="4354000" />
       <workItem from="1701872658995" duration="12346000" />
-      <workItem from="1701900737771" duration="200000" />
+      <workItem from="1701900737771" duration="1313000" />
+      <workItem from="1701972068190" duration="9430000" />
+      <workItem from="1702051740370" duration="8514000" />
+      <workItem from="1702156104863" duration="10793000" />
+      <workItem from="1702225109657" duration="8063000" />
+      <workItem from="1702299171984" duration="5181000" />
     </task>
+    <task id="LOCAL-00001" summary="backupBack">
+      <option name="closed" value="true" />
+      <created>1701901127849</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1701901127849</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -175,6 +200,10 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="backupBack" />
+    <option name="LAST_COMMIT_MESSAGE" value="backupBack" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -185,12 +214,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/controllers/authController/login.js</url>
-          <line>45</line>
+          <line>43</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/controllers/dbSafe/refreshTokenController.js</url>
-          <line>45</line>
+          <line>44</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">

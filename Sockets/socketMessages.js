@@ -46,7 +46,6 @@ const broadcastChatCreated = (senderId, targetId, chatId) => {
 
     createChatRoom(senderSocket, chatId); // Добавляем сокет отправителя в комнату чата
     createChatRoom(targetSocket, chatId); // Добавляем сокет получателя в комнату чата
-    console.log(chatRooms)
     chatRooms[chatId].forEach(socket => {
         if (socket.readyState === WebSocket.OPEN) {
             socket.send(chatCreatedMessage);
@@ -84,7 +83,6 @@ const setupWebSocketMessages = (server) => {
         wsMsg.on('message', async (messageData) => {
             try {
                 const data = JSON.parse(messageData);
-                console.log(data)
                 const {chatId, senderId, message, targetId} = data;
                 if (senderId && chatId && message) {
                     // Создание чата если он отсуствует
