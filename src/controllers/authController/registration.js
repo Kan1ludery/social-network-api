@@ -13,7 +13,7 @@ const {generateUId} = require("../../utils/generateUId");
 
 
 // Маршрут для регистрации
-router.post('/register', csrfProtection, async (req, res) => {
+router.post('/register', async (req, res) => {
     try {
         const db = await connect(); // Получение экземпляра базы данных
         const usersCollection = db.collection('users'); // Получение экземпляра коллекции "users"

@@ -10,7 +10,7 @@ const secretKey = process.env.SECRET_KEY;
 const {csrfProtection} = require("../../utils/csrfToken");
 
 // ЛОГИН
-router.post('/login', csrfProtection, async (req, res) => {
+router.post('/login', async (req, res) => {
     try {
         const db = await connect();
         const collection = db.collection('users');
