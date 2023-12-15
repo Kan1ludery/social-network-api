@@ -5,5 +5,7 @@
 # Игнорирование папки с зависимостями (например, node_modules для Node.js)
 node_modules/
 
+
+.idea
 .env
 test.js

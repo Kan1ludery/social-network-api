@@ -5,20 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ed88ee92-63ff-4269-87a5-027ed4d8bfd9" name="Changes" comment="backupBack">
-      <change afterPath="$PROJECT_DIR$/controllers/messagesController/deleteFriendship.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controllers/messagesController/myDeletedChats.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controllers/messagesController/restoreAccessToChat.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sockets/setupWebSocketIO.js" beforeDir="false" afterPath="$PROJECT_DIR$/Sockets/setupWebSocketIO.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sockets/socketMessages.js" beforeDir="false" afterPath="$PROJECT_DIR$/Sockets/socketMessages.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/authController/emailVerify.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/authController/emailVerify.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/messagesController/addFriendRequest.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/messagesController/addFriendRequest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/messagesController/friendsSearch.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/messagesController/friendsSearch.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/messagesController/messagesController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/messagesController/messagesController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/userController/getRandomUsers.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/userController/getRandomUsers.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uploads/1701626649516-VM7An1EJ6bVRWuByOFqgayLT9JPEdXwPVQ6jkKRNCuV1mTvhhfFIVnmeJrE_I78chlTIX4MShxIT5G_TP2dv7Pzp.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/uploads/1701737973246-GCJWpkYHGVj280rhvC2LApHKeMBtvSOm-rAJQh7Xu0630JmcDPpuHbld7wpjloUFP7uvvlCh.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/authController/emailVerifyFunc.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/authController/emailVerifyFunc.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +42,11 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+<<<<<<< HEAD
     &quot;git-widget-placeholder&quot;: &quot;prob-finish-temp&quot;,
+=======
+    &quot;git-widget-placeholder&quot;: &quot;riffling&quot;,
+>>>>>>> riffling
     &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.3.1&quot;,
     &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.3.1&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/danil/Desktop/Frontend_learning/API/FirstAPI/controllers/userControllers&quot;,
@@ -174,6 +168,13 @@
       <workItem from="1702156104863" duration="10793000" />
       <workItem from="1702225109657" duration="8063000" />
       <workItem from="1702299171984" duration="5181000" />
+      <workItem from="1702392816892" duration="312000" />
+      <workItem from="1702394327580" duration="653000" />
+      <workItem from="1702474690843" duration="1206000" />
+      <workItem from="1702477585292" duration="73000" />
+      <workItem from="1702477886310" duration="42000" />
+      <workItem from="1702598248460" duration="224000" />
+      <workItem from="1702598482518" duration="98000" />
     </task>
     <task id="LOCAL-00001" summary="backupBack">
       <option name="closed" value="true" />

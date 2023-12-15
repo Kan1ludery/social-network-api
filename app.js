@@ -31,6 +31,18 @@ app.get('/', (req, res) => {
     res.send(`API IS RUNNING`); // Отправка ответа для API
 });
 
+// Маршрут для получения объекта одного пользователя
+app.get('/api/usersList', (req, res) => {
+    // Ваш объект пользователя (можете заменить на свои данные)
+    const user = {
+        id: 1,
+        name: 'John Doe',
+        email: 'john@example.com'
+    };
+
+    res.json(user); // Отправка объекта в формате JSON в ответ на запрос
+});
+
 // Запуск сервера на указанном порту
 server.listen(port, () => {
     console.log(`Server is running on port ${port}`); // Вывод сообщения о запуске сервера в консоль
