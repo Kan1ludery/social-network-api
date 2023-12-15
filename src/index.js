@@ -1,23 +1,27 @@
 // index.js
-require('dotenv').config(); // Загружаем переменные окружения из .env файла
 const express = require('express'); // Подключение модуля express
 const path = require("path")
 const {setupWebSocketOnlineStatus} = require("./Sockets/socketOnlineStatus;");
-const {setupServerControllers} = require("./controllers/setupServerControllers");
-const {setupUtils} = require("./utils/setup/setupUtils");
 const {setupWebSocketMessages} = require("./Sockets/socketMessages");
 const {setupWebSocketIO} = require("./Sockets/setupWebSocketIO");
-const {getSSLCredentialsFromEnv} = require("./utils/getSSLCredentialsFromEnv");
-const {createServer} = require("https");
+const {setupServerControllers} = require("./controllers/setupServerControllers");
+const {setupUtils} = require("./utils/setup/setupUtils");
+const {loadEnv} = require("./utils/loadEnv");
 const https = require("https");
+const fs = require("fs");
+loadEnv()
 
 const app = express(); // Создание экземпляра приложения express
-const port = process.env.PORT || 5050; // Порт, на котором будет запущен сервер
+const port = process.env.PORT || 5060; // Порт, на котором будет запущен сервер
 
-const credentials = getSSLCredentialsFromEnv()
+const options = {
+    key: fs.readFileSync('./utils/perKey.pem'),
+    cert: fs.readFileSync('./utils/certificate.pem'),
+}
 
-// Создание HTTPS-сервера с использованием SSL-сертификатов
-const server = https.createServer(credentials, app);
+// serve the API with signed certificate on 443 (SSL/HTTPS) port
+const server = https.createServer(options, app);
+console.log(server)
 
 /** Установка всех побочных утилит */
 setupUtils(app, express)

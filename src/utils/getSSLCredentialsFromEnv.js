@@ -1,14 +1,15 @@
-require('dotenv').config(); // Загружаем переменные окружения из .env файла
+const {loadEnv} = require("./loadEnv");
+loadEnv()
 
 const getSSLCredentialsFromEnv = () => {
     const privateKey = process.env.PRIVATE_KEY; // Приватный ключ
     const certificate = process.env.CERTIFICATE; // Основной сертификат
-    const chain = process.env.CHAIN_CERTIFICATE; // Цепочка сертификатов (цепь доверия)
+
+    console.log(privateKey)
 
     return {
         key: privateKey,
         cert: certificate,
-        ca: chain, // Добавляем цепочку сертификатов к возвращаемому объекту
     };
 };
 
