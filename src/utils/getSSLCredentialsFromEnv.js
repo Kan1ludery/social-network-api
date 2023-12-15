@@ -11,4 +11,4 @@ function getSSLCredentialsFromEnv() {
     };
 }
 
-module.exports = getSSLCredentialsFromEnv;
+module.exports = {getSSLCredentialsFromEnv};

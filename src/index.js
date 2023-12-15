@@ -7,13 +7,13 @@ const {setupServerControllers} = require("./controllers/setupServerControllers")
 const {setupUtils} = require("./utils/setup/setupUtils");
 const {setupWebSocketMessages} = require("./Sockets/socketMessages");
 const {setupWebSocketIO} = require("./Sockets/setupWebSocketIO");
-const {getSSLCredentials} = require("./utils/getSSLCredentials");
+const {getSSLCredentialsFromEnv} = require("./utils/getSSLCredentialsFromEnv");
 const {createServer} = require("https");
 
 const app = express(); // Создание экземпляра приложения express
 const port = process.env.PORT || 5050; // Порт, на котором будет запущен сервер
 
-const credentials = getSSLCredentials()
+const credentials = getSSLCredentialsFromEnv()
 
 // Создание HTTPS-сервера с использованием SSL-сертификатов
 const httpsServer = createServer(credentials, app);
