@@ -1,9 +1,8 @@
 const socketIo = require('socket.io');
-const {createServer} = require("https");
 const https = require("https");
 
-const setupWebSocketIO = (app, credentials) => {
-    const server = https.createServer(credentials, app);
+const setupWebSocketIO = (app, server) => {
+
     const io = socketIo(server, {
         cors: {
             origin: 'https://social-network-1udsck7b7-kans-projects-f163426e.vercel.app',
@@ -30,7 +29,7 @@ const setupWebSocketIO = (app, credentials) => {
 
     app.set('userSocketMap', userSocketMap); // Сохраняем Map в объекте приложения Express
 
-    return {server, io};
+    return {io};
 };
 
 module.exports = {setupWebSocketIO};

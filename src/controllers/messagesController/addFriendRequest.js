@@ -3,7 +3,6 @@ const express = require('express');
 const connect = require("../dbSafe/db");
 const {authenticateToken} = require("../../utils/authenticateToken");
 const {generateUId} = require("../../utils/generateUId");
-const {setupWebSocketIO} = require("../../Sockets/setupWebSocketIO");
 const router = express.Router();
 
 // Роут для создания друзей пользователя

@@ -9,6 +9,7 @@ const {setupWebSocketMessages} = require("./Sockets/socketMessages");
 const {setupWebSocketIO} = require("./Sockets/setupWebSocketIO");
 const {getSSLCredentialsFromEnv} = require("./utils/getSSLCredentialsFromEnv");
 const {createServer} = require("https");
+const https = require("https");
 
 const app = express(); // Создание экземпляра приложения express
 const port = process.env.PORT || 5050; // Порт, на котором будет запущен сервер
@@ -16,8 +17,7 @@ const port = process.env.PORT || 5050; // Порт, на котором буде
 const credentials = getSSLCredentialsFromEnv()
 
 // Создание HTTPS-сервера с использованием SSL-сертификатов
-const httpsServer = createServer(credentials, app);
-
+const server = https.createServer(credentials, app);
 
 /** Установка всех побочных утилит */
 setupUtils(app, express)
@@ -29,7 +29,7 @@ setupServerControllers(app)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 /** WEBSOCKETS */
-const {server} = setupWebSocketIO(app, credentials)
+setupWebSocketIO(app, server)
 const serverMsg = app.listen(8080);
 setupWebSocketMessages(serverMsg); // Вызов функции для настройки WebSocket-сервера
 const serverOnl = app.listen(8081);
