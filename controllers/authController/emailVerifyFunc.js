@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
 const sendVerificationEmail = async (email, emailVerificationToken) => {
     try {
         const mailOptions = {
-            from: process.env.EMAIL_USER,
+            from: 'YoMessage',
             to: email,
             subject: "Подтверждение почты",
             text: `Для подтверждения почты перейдите по ссылке: http://localhost:3001/api/confirm?token=${emailVerificationToken}&email=${email}`,
