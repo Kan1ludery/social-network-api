@@ -1,6 +1,7 @@
 // index.js
+require('dotenv').config(); // Загружаем переменные окружения из .env файла
 const express = require('express'); // Подключение модуля express
-const path = require('path')
+const path = require("path")
 const {setupWebSocketOnlineStatus} = require("./Sockets/socketOnlineStatus;");
 const {setupServerControllers} = require("./controllers/setupServerControllers");
 const {setupUtils} = require("./utils/setup/setupUtils");
@@ -8,7 +9,7 @@ const {setupWebSocketMessages} = require("./Sockets/socketMessages");
 const {setupWebSocketIO} = require("./Sockets/setupWebSocketIO");
 
 const app = express(); // Создание экземпляра приложения express
-const port = 3001; // Порт, на котором будет запущен сервер
+const port = process.env.PORT || 5050; // Порт, на котором будет запущен сервер
 
 /** Установка всех побочных утилит */
 setupUtils(app, express)
