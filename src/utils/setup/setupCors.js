@@ -1,6 +1,6 @@
 const cors = require("cors");
 const setupCors = (app) => {
-    const allowedOrigins = ['https://social-network-lwphctdfi-kans-projects-f163426e.vercel.app/login'];
+    const allowedOrigins = ['https://yomessage.up.railway.app/'];
     app.use(cors({
         origin: function (origin, callback) {
             if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
