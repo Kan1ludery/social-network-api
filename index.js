@@ -37,7 +37,8 @@ app.get('/api/usersList', (req, res) => {
     const user = {
         id: 1,
         name: 'John Doe',
-        email: 'john@example.com'
+        email: 'john@example.com',
+        car: 'red'
     };
 
     res.json(user); // Отправка объекта в формате JSON в ответ на запрос
