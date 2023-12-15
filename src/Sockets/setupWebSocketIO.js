@@ -5,7 +5,7 @@ const setupWebSocketIO = (app) => {
     const server = http.createServer(app);
     const io = socketIo(server, {
         cors: {
-            origin: 'http://localhost:3000',
+            origin: 'https://social-network-lwphctdfi-kans-projects-f163426e.vercel.app/login',
             methods: ['GET', 'POST'],
             credentials: true
         }
