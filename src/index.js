@@ -1,4 +1,4 @@
-// app.js
+// index.js
 const express = require('express'); // Подключение модуля express
 const path = require('path')
 const {setupWebSocketOnlineStatus} = require("./Sockets/socketOnlineStatus;");
