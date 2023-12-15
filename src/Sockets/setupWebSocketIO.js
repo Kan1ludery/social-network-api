@@ -1,8 +1,9 @@
 const socketIo = require('socket.io');
 const {createServer} = require("https");
+const https = require("https");
 
 const setupWebSocketIO = (app, credentials) => {
-    const server = createServer(credentials, app);
+    const server = https.createServer(credentials, app);
     const io = socketIo(server, {
         cors: {
             origin: 'https://social-network-1udsck7b7-kans-projects-f163426e.vercel.app',
