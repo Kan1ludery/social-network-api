@@ -15,11 +15,11 @@ const {generateUId} = require("../../utils/generateUId");
 
 
 // Маршрут для регистрации
-router.post('/register', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const db = await connect(); // Получение экземпляра базы данных
         const usersCollection = db.collection('users'); // Получение экземпляра коллекции "users"
-        const personalChatsCollection = db.collection('personalChats')
+        const chatsCollection = db.collection('chats')
         let {username, password, email} = req.body;
         // Проверка, что все обязательные поля переданы
         if (!username || !password || !email) {
@@ -100,7 +100,7 @@ router.post('/register', async (req, res) => {
             created_at: new Date(),
             isPersonal: true,
         };
-        await personalChatsCollection.insertOne(personalChat)
+        await chatsCollection.insertOne(personalChat)
         // Генерация JWT-токена
         const token = jwt.sign({userId: newUser._id, emailVerified: newUser.emailVerified}, secretKey, {expiresIn: '1h'});
 
