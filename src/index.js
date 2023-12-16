@@ -7,19 +7,11 @@ const {setupWebSocketIO} = require("./Sockets/setupWebSocketIO");
 const {setupServerControllers} = require("./controllers/setupServerControllers");
 const {setupUtils} = require("./utils/setup/setupUtils");
 const {loadEnv} = require("./utils/loadEnv");
-// const https = require("https");
-// const fs = require("fs");
 const http = require("http");
 loadEnv()
 
 const app = express(); // Создание экземпляра приложения express
 const port = process.env.PORT || 5060; // Порт, на котором будет запущен сервер
-
-
-// const options = {
-//     key: fs.readFileSync(path.resolve(__dirname, './ssl/server.key')),
-//     cert: fs.readFileSync(path.resolve(__dirname, './ssl/server.csr')),
-// }
 
 // serve the API with signed certificate on 443 (SSL/HTTPS) port
 const server = http.createServer(app)
@@ -33,6 +25,12 @@ setupServerControllers(app)
 /** Загрузка фотографий */
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
+// Указываем путь к папке с загруженными файлами
+const uploadsFolderPath = '/uploads'; // Путь, на который смонтирован том
+
+// Настроить Express для обслуживания статических файлов из папки uploads
+app.use('/uploads', express.static(uploadsFolderPath));
+
 /** WEBSOCKETS */
 setupWebSocketIO(app, server)
 const serverMsg = app.listen(8080);
@@ -44,6 +42,7 @@ setupWebSocketOnlineStatus(serverOnl);
 app.get('/', (req, res) => {
     res.send(`API IS RUNNING`); // Отправка ответа для API
 });
+
 
 // Маршрут для получения объекта одного пользователя
 app.get('/api/usersList', (req, res) => {

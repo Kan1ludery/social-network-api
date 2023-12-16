@@ -3,7 +3,7 @@ const router = express.Router();
 const {authenticateToken} = require("../../utils/authenticateToken");
 const connect = require("../dbSafe/db");
 const multer = require("multer");
-const fs = require("fs"); // Подключите вашу базу данных
+const fs = require("fs");
 
 const storage = multer.diskStorage({
     destination: 'uploads/',
@@ -13,11 +13,11 @@ const storage = multer.diskStorage({
         cb(null, filename);
     }
 });
-const upload = multer({ storage: storage });
+const upload = multer({storage: storage});
 router.post('/uploadImage', authenticateToken, upload.single('image'), async (req, res) => {
     try {
         if (req.file) {
-            const db = await connect(); // Установка соединения с базой данных
+            const db = await connect();
             const usersCollection = db.collection('users');
             const userId = req.user._id;
 
