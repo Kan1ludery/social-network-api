@@ -1,35 +1,14 @@
 const socketIo = require('socket.io');
 const https = require("https");
+const {setupSocketOne} = require("./socketsIO/setupSocketOne");
+const {setupSocketTwo} = require("./socketsIO/setupSocketTwo");
 
 const setupWebSocketIO = (app, server) => {
 
-    const io = socketIo(server, {
-        cors: {
-            origin: ['https://social-network-1udsck7b7-kans-projects-f163426e.vercel.app', 'http://localhost:3000'],
-            methods: ['GET', 'POST'],
-            credentials: true
-        }
-    });
+    const {io1} = setupSocketOne(app, server)
+    const {io2} = setupSocketTwo(app, server)
 
-    app.set('socketIO', io); // Устанавливаем io в объект приложения Express
-
-    const userSocketMap = new Map();
-
-    io.on('connection', (socket) => {
-        const userId = socket.handshake.auth.userId; // Получаем userId из handshake
-        socket.userId = userId; // Добавляем userId к объекту сокета
-        userSocketMap.set(userId, socket);
-    });
-    io.on('disconnect', (socket) => {
-        const userId = socket.userId; // Получаем userId из объекта сокета
-        if (userId) {
-            userSocketMap.delete(userId);
-        }
-    });
-
-    app.set('userSocketMap', userSocketMap); // Сохраняем Map в объекте приложения Express
-
-    return {io};
+    return {io1, io2};
 };
 
 module.exports = {setupWebSocketIO};
