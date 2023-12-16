@@ -13,15 +13,15 @@ loadEnv()
 
 const app = express(); // Создание экземпляра приложения express
 const port = process.env.PORT || 5060; // Порт, на котором будет запущен сервер
+const certificate= process.env.PRIVATE_KEY1
 
 const options = {
-    key: fs.readFileSync('./utils/perKey.pem'),
-    cert: fs.readFileSync('./utils/certificate.pem'),
+    key: fs.readFileSync(path.resolve(__dirname, './ssl/server.key')),
+    cert: fs.readFileSync(path.resolve(__dirname, './ssl/server.csr')),
 }
 
 // serve the API with signed certificate on 443 (SSL/HTTPS) port
 const server = https.createServer(options, app);
-console.log(server)
 
 /** Установка всех побочных утилит */
 setupUtils(app, express)

@@ -3,7 +3,6 @@ const dotenv = require('dotenv');
 
 const loadEnv = () => {
     const envPath = path.resolve(__dirname, '../../.env');
-    console.log('Текущий рабочий каталог:', envPath);
     return dotenv.config({ path: envPath });
 };
 
