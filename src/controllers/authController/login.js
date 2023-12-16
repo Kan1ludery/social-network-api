@@ -1,14 +1,14 @@
 // login.js
+const {loadEnv} = require("../../utils/loadEnv");
+loadEnv()
 const express = require('express');
 const router = express.Router();
 const connect = require('../dbSafe/db');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const {sanitizeInput} = require("../../utils/sanitizeInput");
-require('dotenv').config();
 const secretKey = process.env.SECRET_KEY;
 const {csrfProtection} = require("../../utils/csrfToken");
-
 // ЛОГИН
 router.post('/login', async (req, res) => {
     try {
@@ -39,7 +39,6 @@ router.post('/login', async (req, res) => {
         const token = jwt.sign({userId: user._id, emailVerified: user.emailVerified}, secretKey, {expiresIn: '1h'}); // Срок действия токена - 1час
         //Получение refreshToken с базы данных
         const refreshToken = user.refreshToken
-
         // Отправка токена в куки с HttpOnly (изменить sameSite на 'none', domain на '', secure на 'true', когда выйду на продакшн)
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,

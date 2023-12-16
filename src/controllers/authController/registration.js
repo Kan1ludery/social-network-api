@@ -1,4 +1,6 @@
 // registration.js
+const {loadEnv} = require("../../utils/loadEnv");
+loadEnv()
 const express = require('express');
 const router = express.Router();
 const connect = require('../dbSafe/db');
@@ -6,10 +8,10 @@ const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const {sanitizeInput} = require("../../utils/sanitizeInput");
 const {sendVerificationEmail} = require("./emailVerifyFunc");
-require('dotenv').config();
 const secretKey = process.env.SECRET_KEY;
 const {csrfProtection} = require("../../utils/csrfToken");
 const {generateUId} = require("../../utils/generateUId");
+
 
 
 // Маршрут для регистрации

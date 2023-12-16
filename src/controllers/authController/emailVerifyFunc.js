@@ -1,6 +1,7 @@
 // emailVerifyFunc.js
 const nodemailer = require("nodemailer");
-require('dotenv').config();
+const {loadEnv} = require("../../utils/loadEnv");
+loadEnv()
 
 // Создайте объект для отправки электронных писем
 const transporter = nodemailer.createTransport({

@@ -1,6 +1,6 @@
 const cors = require("cors");
 const setupCors = (app) => {
-    const allowedOrigins = ['https://social-network-1udsck7b7-kans-projects-f163426e.vercel.app'];
+    const allowedOrigins = ['https://social-network-1udsck7b7-kans-projects-f163426e.vercel.app', 'http://localhost:3000'];
     app.use(cors({
         origin: function (origin, callback) {
             if (allowedOrigins.indexOf(origin) !== -1 || !origin) {

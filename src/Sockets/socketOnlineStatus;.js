@@ -1,7 +1,8 @@
 const WebSocket = require('ws');
-require('dotenv').config();
 const {Server} = WebSocket;
 const {verify} = require("jsonwebtoken");
+const {loadEnv} = require("../utils/loadEnv");
+loadEnv()
 const secretKey = process.env.SECRET_KEY;
 
 // Словарь для отслеживания статуса онлайн пользователей

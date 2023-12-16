@@ -1,11 +1,13 @@
 // refreshTokenController.js
+const {loadEnv} = require("../../utils/loadEnv");
+loadEnv()
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const connect = require('./db');
 const {generateUId} = require("../../utils/generateUId");
 const secretKey = process.env.SECRET_KEY;
-require('dotenv').config();
+
 
 
 router.post('/refresh-token', async (req, res) => {

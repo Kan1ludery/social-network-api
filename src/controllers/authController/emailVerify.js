@@ -1,8 +1,9 @@
 // EmailVerifyController.js
+const {loadEnv} = require("../../utils/loadEnv");
 const express = require("express");
 const connect = require("../dbSafe/db");
 const router = express.Router();
-require('dotenv').config();
+loadEnv()
 const jwt = require("jsonwebtoken");
 const secretKey = process.env.SECRET_KEY;
 

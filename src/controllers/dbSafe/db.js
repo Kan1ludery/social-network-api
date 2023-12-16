@@ -1,6 +1,6 @@
-require('dotenv').config();
 const {MongoClient} = require('mongodb');
-
+const {loadEnv} = require("../../utils/loadEnv");
+loadEnv()
 const uri = process.env.DATABASE_URI;
 const dbName = process.env.DB_NAME;
 
