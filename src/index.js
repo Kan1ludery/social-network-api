@@ -14,7 +14,7 @@ loadEnv()
 const app = express(); // Создание экземпляра приложения express
 const port = process.env.PORT || 5060; // Порт, на котором будет запущен сервер
 const certificate= process.env.PRIVATE_KEY1
-
+console.log(fs.readFileSync(path.resolve(__dirname, './ssl/server.csr')).toString())
 const options = {
     key: fs.readFileSync(path.resolve(__dirname, './ssl/server.key')),
     cert: fs.readFileSync(path.resolve(__dirname, './ssl/server.csr')),
@@ -56,8 +56,10 @@ app.get('/api/usersList', (req, res) => {
 
     res.json(user); // Отправка объекта в формате JSON в ответ на запрос
 });
-
+server.on('error', (error) => {
+    console.error('Server error:', error);
+});
 // Запуск сервера на указанном порту
-server.listen(port, () => {
+server.listen(443, () => {
     console.log(`Server is running on port ${port}`); // Вывод сообщения о запуске сервера в консоль
 });
