@@ -37,19 +37,6 @@ app.get('/', (req, res) => {
     res.send(`API IS RUNNING`); // Отправка ответа для API
 });
 
-
-// Маршрут для получения объекта одного пользователя
-app.get('/api/usersList', (req, res) => {
-    // Ваш объект пользователя (можете заменить на свои данные)
-    const user = {
-        id: 1,
-        name: 'John Doe',
-        email: 'john@example.com',
-        car: 'red'
-    };
-
-    res.json(user); // Отправка объекта в формате JSON в ответ на запрос
-});
 server.on('error', (error) => {
     console.error('Server error:', error);
 });

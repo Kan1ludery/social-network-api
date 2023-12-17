@@ -43,10 +43,10 @@ router.post('/login', async (req, res) => {
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             maxAge: 30 * 24 * 60 * 60 * 1000,
-            domain: 'localhost',
+            domain: 'https://social-network-theta-seven.vercel.app/login',
             path: '/',
             sameSite: 'lax',
-            secure: false
+            secure: true
         })
         // Успешный вход в систему
         res.json({message: 'Вход выполнен успешно', token});
