@@ -30,6 +30,11 @@ const setupAddFriendRequest = (app) => {
             if (existingUser._id === friendId) {
                 return res.status(400).json({error: 'Вы не можете добавить себя в друзья'});
             }
+            // Проверяем, не отправлял ли пользователь запрос на добавление в друзья
+            const isFriendshipRequestSent = await friendsCollection.findOne({userId: friendId, friendId: userId});
+            if (isFriendshipRequestSent) {
+                return res.status(400).json({error: 'Запрос на добавление в друзья уже создан'});
+            }
             // Проверяем, не добавлен ли пользователь уже в друзья
             const isAlreadyFriend = await friendsCollection.findOne({
                 $or: [
@@ -37,13 +42,9 @@ const setupAddFriendRequest = (app) => {
                     {userId: friendId, friendId: userId, status: 'accepted'},
                 ],
             });
+
             if (isAlreadyFriend) {
                 return res.status(400).json({error: 'Этот пользователь уже есть в вашем списке друзей'});
-            }
-            // Проверяем, не отправлял ли пользователь запрос на добавление в друзья
-            const isFriendshipRequestSent = await friendsCollection.findOne({userId: friendId, friendId: userId});
-            if (isFriendshipRequestSent) {
-                return res.status(400).json({error: 'Запрос на добавление в друзья уже создан'});
             }
             const friendship = {
                 _id: generateUId(),

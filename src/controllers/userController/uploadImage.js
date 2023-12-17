@@ -4,15 +4,19 @@ const {authenticateToken} = require("../../utils/authenticateToken");
 const connect = require("../dbSafe/db");
 const multer = require("multer");
 const fs = require("fs");
+const {getImageFolderPath} = require("./getImageFolderPath");
 
+const imageFolderPath = getImageFolderPath()
 const storage = multer.diskStorage({
-    destination: 'uploads/',
+    destination: imageFolderPath,
     filename: function (req, file, cb) {
         const timestamp = Date.now();
         const filename = `${timestamp}-${file.originalname}`;
         cb(null, filename);
     }
 });
+
+const fsPromises = fs.promises;
 const upload = multer({storage: storage});
 router.post('/uploadImage', authenticateToken, upload.single('image'), async (req, res) => {
     try {
@@ -32,11 +36,12 @@ router.post('/uploadImage', authenticateToken, upload.single('image'), async (re
                 // Полный путь к старой картинке
                 const oldImagePath = `uploads/${oldImageFileName}`;
                 // Асинхронное удаление файла
-                fs.unlink(oldImagePath, (err) => {
-                    if (err) {
-                        console.error('Ошибка при удалении старой картинки:', err);
-                    }
-                });
+                try {
+                    await fsPromises.unlink(oldImagePath);
+                    console.log('Старое изображение успешно удалено:', oldImagePath);
+                } catch (err) {
+                    console.error('Ошибка при удалении старого изображения:', err);
+                }
             }
 
             const fileName = req.file.filename;

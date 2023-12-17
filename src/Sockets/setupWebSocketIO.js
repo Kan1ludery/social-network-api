@@ -21,7 +21,7 @@ const setupWebSocketIO = (app, server) => {
 
     const {io3} = setupSocketThree(mainSocket)
 
-    return {io1, io2}; // Prob return
+    return {io1, io2, io3}; // Prob return
 };
 
 module.exports = {setupWebSocketIO};

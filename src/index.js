@@ -1,8 +1,6 @@
 // index.js
 const express = require('express'); // Подключение модуля express
 const path = require("path")
-const {setupWebSocketOnlineStatus} = require("./Sockets/socketOnlineStatus;");
-const {setupWebSocketMessages} = require("./Sockets/socketMessages");
 const {setupWebSocketIO} = require("./Sockets/setupWebSocketIO");
 const {setupServerControllers} = require("./controllers/setupServerControllers");
 const {setupUtils} = require("./utils/setup/setupUtils");
@@ -33,10 +31,6 @@ app.use('/uploads', express.static(uploadsFolderPath));
 
 /** WEBSOCKETS */
 setupWebSocketIO(app, server)
-const serverMsg = app.listen(8080);
-setupWebSocketMessages(serverMsg); // Вызов функции для настройки WebSocket-сервера
-const serverOnl = app.listen(8081);
-setupWebSocketOnlineStatus(serverOnl);
 
 // Маршрут для корневого URL-адреса API
 app.get('/', (req, res) => {

@@ -21,8 +21,6 @@ const saveMessageToDatabase = async (chatId, message) => {
             return;
         }
 
-
-
         // Обновляем базу данных для чата
         const result = await chatsCollection.updateOne(
             { chatId: chatId },
