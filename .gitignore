@@ -5,6 +5,7 @@
 db/migrations
 .yarn
 .pnp*
+*.tmp
 
 node_modules
 .idea/

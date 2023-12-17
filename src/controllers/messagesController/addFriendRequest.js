@@ -59,6 +59,7 @@ const setupAddFriendRequest = (app) => {
                 return res.status(500).send('Ошибка: объект io не был найден или не установлен.');
             }
             const userSocketMap = app.get('userSocketMap');
+            console.log(userSocketMap)
             // Далее, чтобы отправить сообщение конкретному пользователю по его ID:
             const socket = userSocketMap.get(friendId);
             if (socket) {
