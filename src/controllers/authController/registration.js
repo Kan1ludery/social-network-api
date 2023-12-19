@@ -112,8 +112,7 @@ router.post('/register', async (req, res) => {
             httpOnly: true,
             maxAge: 30 * 24 * 60 * 60 * 1000,
             domain: 'https://social-network-theta-seven.vercel.app/login',
-            sameSite: 'lax',
-            secure: true}); // Устанавливает refreshToken в куках
+        }); // Устанавливает refreshToken в куках
 
         // Отправка JWT-токена как ответ
         res.json({message: 'Регистрация прошла успешно', token});

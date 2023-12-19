@@ -13,12 +13,13 @@ const setupWebSocketIO = (app, server) => {
         }
     });
 
-    /** REQUEST AND EMAIL SOCKET*/
+    /** REQUEST FRIENDS AND EMAIL SOCKET*/
     const {io1} = setupSocketOne(app, mainSocket)
 
     /** ONLINE WEBSOCKET */
     const {io2} = setupSocketTwo(mainSocket)
 
+    /** MESSAGES SOCKET */
     const {io3} = setupSocketThree(mainSocket)
 
     return {io1, io2, io3}; // Prob return

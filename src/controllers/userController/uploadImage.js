@@ -38,7 +38,6 @@ router.post('/uploadImage', authenticateToken, upload.single('image'), async (re
                 // Асинхронное удаление файла
                 try {
                     await fsPromises.unlink(oldImagePath);
-                    console.log('Старое изображение успешно удалено:', oldImagePath);
                 } catch (err) {
                     console.error('Ошибка при удалении старого изображения:', err);
                 }

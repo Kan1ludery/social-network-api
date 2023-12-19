@@ -9,7 +9,6 @@ loadEnv()
 
 router.get('/uploads/:fileName', (req, res) => {
     const imageFolderPath = getImageFolderPath()
-    console.log(imageFolderPath)
     const fileName = req.params.fileName;
     const imagePath = path.join(imageFolderPath, fileName); // Путь к изображению
     res.sendFile(imagePath);

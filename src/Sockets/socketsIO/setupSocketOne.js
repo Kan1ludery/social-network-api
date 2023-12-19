@@ -1,7 +1,6 @@
-const socketIo = require('socket.io');
 const setupSocketOne = (app, mainSocket) => {
 
-    const socketIO1 = mainSocket.of('/socketIO'); // Создание пространства имен
+    const socketIO1 = mainSocket.of('/socketIO1'); // Создание пространства имен
 
     app.set('socketIO', socketIO1); // Устанавливаем io в объект приложения Express
 

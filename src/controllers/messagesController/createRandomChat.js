@@ -14,7 +14,6 @@ router.post('/createChat', authenticateToken, async (req, res) => {
         // Получить идентификаторы двух пользователей из тела запроса
         const userId1 = req.user._id;
         const userId2 = req.body.userId2;
-        console.log(userId1, userId2)
 
         // Проверить, что пользователи существуют в базе данных
         const usersExist = await usersCollection.countDocuments({ _id: { $in: [userId1, userId2] } });

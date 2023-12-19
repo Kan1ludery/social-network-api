@@ -36,17 +36,16 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({error: 'Неверные учетные данные'}); // Неверный  пароль
         }
         // Регистрация jwt token для пользователя
-        const token = jwt.sign({userId: user._id, emailVerified: user.emailVerified}, secretKey, {expiresIn: '1h'}); // Срок действия токена - 1час
+        const token = jwt.sign({userId: user._id, emailVerified: user.emailVerified}, secretKey, {expiresIn: '15s'}); // Срок действия токена - 1час
         //Получение refreshToken с базы данных
         const refreshToken = user.refreshToken
         // Отправка токена в куки с HttpOnly (изменить sameSite на 'none', domain на '', secure на 'true', когда выйду на продакшн)
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             maxAge: 30 * 24 * 60 * 60 * 1000,
-            domain: 'https://social-network-theta-seven.vercel.app/login',
+            domain: 'localhost',
             path: '/',
-            sameSite: 'lax',
-            secure: true
+            secure: false
         })
         // Успешный вход в систему
         res.json({message: 'Вход выполнен успешно', token});

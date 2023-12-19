@@ -97,7 +97,7 @@ const setupSocketThree = (mainSocket) => {
     });
 
     socketIO3.on('disconnect', () => {
-        console.log('disconnected3');
+
     });
 
     return socketIO3;

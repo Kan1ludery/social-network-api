@@ -8,7 +8,7 @@ const setupAuthRoutes = (app) => {
     app.use('/api', registration)  // /api/ (регистрация в системе
     app.use('/api', loginController);        // /api/login (вход в систему)
     app.use('/api', logoutController);       // /api/logout (выход из системы)
-    app.use('/api', setupEmailVerification(app))   // /api/confirm (подтверждение почты)
+    app.use('/api', setupEmailVerification)   // /api/confirm (подтверждение почты)
     app.use('/api', resendVerificationEmail)   // /api/resendVerificationEmail (Повторная отправка подтверждения почты)
 };
 

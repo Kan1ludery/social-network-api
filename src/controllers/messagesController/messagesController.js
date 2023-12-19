@@ -6,7 +6,7 @@ const friendsSearch = require("./friendsSearch");
 const setupAddFriendRequest = require("./addFriendRequest");
 const getFriendsChat = require("./getFriendsChatList");
 const getFriendsRequests = require("./getFriendsRequests");
-const acceptFriendRequests = require("./acceptFriendRequest");
+const setupAcceptFriendRequest = require("./acceptFriendRequest");
 const rejectFriendRequests = require("./rejectFriendRequest");
 const getChatInfo = require("./getChatInfo");
 const deleteChat = require("./deleteChat");
@@ -21,7 +21,7 @@ const setupMessagesRoutes = (app) => {
     app.use('/api', setupAddFriendRequest(app)) // /api/addFriend (Запрос на добавление в друзья)
     app.use('/api', getFriendsChat) // /api/getFriends (Получение списка друзей)
     app.use('/api', getFriendsRequests) // /api/getFriendsRequests (Получение реквестов от других пользователей)
-    app.use('/api', acceptFriendRequests) // /api/acceptFriendRequest (Добавление в друзья)
+    app.use('/api', setupAcceptFriendRequest(app)) // /api/acceptFriendRequest (Добавление в друзья)
     app.use('/api', rejectFriendRequests) // /api/rejectFriendRequests (Удаление из друзей (заявка))
     app.use('/api', deleteFriendship) // /api/deleteFriendship (Удаление из друзей)
     app.use('/api', getChatInfo) // /api/getChatInfo/:chatId (Получение информации чата)

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Confirmation</title>
+    <style>
+        /* Стили для красивого отображения */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .confirmation-box {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        #countdown {
+            color: #999;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+<h1>Ваша почта успешно подтверждена!</h1>
+<p>Это окно можно закрыть.</p>
+<p id="countdown">Окно закроется через 10 секунд.</p>
+<script>
+    let seconds = 10; // Устанавливаем начальное значение времени (в секундах)
+    const countdown = document.getElementById('countdown');
+
+    function updateCountdown() {
+        countdown.innerHTML = `Окно закроется через ${seconds} секунд.`;
+        seconds--;
+
+        if (seconds < 0) {
+            window.close(); // Закрыть окно, когда время истекло
+        } else {
+            setTimeout(updateCountdown, 1000); // Обновляем каждую секунду
+        }
+    }
+
+    // Начинаем отсчет
+    updateCountdown();
+</script>
+</body>
+</html>

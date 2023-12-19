@@ -19,7 +19,7 @@ const sendVerificationEmail = async (email, emailVerificationToken) => {
             from: 'YoMessage',
             to: email,
             subject: "Подтверждение почты",
-            text: `Для подтверждения почты перейдите по ссылке: https://social-network-api.up.railway.app/api/confirm?token=${emailVerificationToken}&email=${email}`,
+            text: `Для подтверждения почты перейдите по ссылке: http://localhost:5050/api/confirm?token=${emailVerificationToken}&email=${email}`,
         };
         const info = await transporter.sendMail(mailOptions);
         console.log("Письмо успешно отправлено: " + info.response);
