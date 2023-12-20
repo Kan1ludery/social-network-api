@@ -78,10 +78,16 @@ const setupSocketThree = (mainSocket) => {
                     if (chatCreationResult) {
                         broadcastChatCreated(senderId, targetId, chatId);
                     }
-
-                    await saveMessageToDatabase(chatId, { senderId, text: message, timestamp: new Date() });
-
-                    broadcastMessage(chatId, senderId, message);
+                    let isMessageSaved = false;
+                    try {
+                        await saveMessageToDatabase(chatId, { senderId, text: message, timestamp: new Date() }, socket);
+                        isMessageSaved = true;
+                    } catch (error) {
+                        console.error('Error saving message to database:', error);
+                    }
+                    if (isMessageSaved) {
+                        broadcastMessage(chatId, senderId, message);
+                    }
                 } else {
                     console.error('Invalid message from client:', message);
                 }

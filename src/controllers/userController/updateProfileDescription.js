@@ -19,7 +19,6 @@ router.patch('/updateProfileDescription', authenticateToken, async (req, res) =>
         // Базовая проверка на запрещенные символы (примерно)
         const forbiddenCharacters = /[$^&()+={}[\]"'|\\<>/~`]/g;
         if (forbiddenCharacters.test(newDescription)) {
-            console.log(newDescription.match(forbiddenCharacters));
             const matches = [...newDescription.matchAll(forbiddenCharacters)];
             const forbiddenChars = matches.map(match => match[0]);
             return res.status(400).json({ error: `Description contains forbidden characters: ${forbiddenChars.join(', ')}` });

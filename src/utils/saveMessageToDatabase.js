@@ -1,7 +1,7 @@
 const connect = require("../controllers/dbSafe/db");
 
 
-const saveMessageToDatabase = async (chatId, message) => {
+const saveMessageToDatabase = async (chatId, message, socket) => {
     try {
         const db = await connect();
         const chatsCollection = db.collection('chats');
@@ -15,6 +15,10 @@ const saveMessageToDatabase = async (chatId, message) => {
             text: message.text,
             timestamp: message.timestamp,
         };
+
+        if (messageData.text.length > 150) {
+            throw new Error('Слишком длинное сообщение')
+        }
 
         if (!chat) {
             console.error('Чат не найден');
@@ -31,14 +35,15 @@ const saveMessageToDatabase = async (chatId, message) => {
                 },
             }
         );
-
         if (result.modifiedCount === 1) {
-            console.log('Сообщение сохранено в базе данных');
+
         } else {
             console.error('Ошибка при сохранении сообщения в базе данных');
         }
     } catch (error) {
         console.error('Ошибка при обновлении базы данных:', error);
+        socket.emit('error', error.message);
+        throw new Error('Error with saving message')
     }
 };
 module.exports = {saveMessageToDatabase};

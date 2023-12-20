@@ -25,7 +25,9 @@ router.post('/register', async (req, res) => {
         if (!username || !password || !email) {
             return res.status(400).json({error: 'Не указаны все обязательные поля'});
         }
-
+        if (username.length > 15) {
+            return res.status(400).json({error: 'Поле username превышает указанный лимит'});
+        }
         // Экранирование данных перед добавлением в базу данных
         username = sanitizeInput(username);
         email = sanitizeInput(email);
@@ -110,9 +112,13 @@ router.post('/register', async (req, res) => {
         // Отправка токена в куки с HttpOnly
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            maxAge: 30 * 24 * 60 * 60 * 1000,
-            domain: 'https://social-network-theta-seven.vercel.app/login',
-        }); // Устанавливает refreshToken в куках
+            maxAge: 30 * 24 * 60 * 60 * 1000, // Время жизни куки в миллисекундах (30 дней)
+            domain: '.vercel.app', // Домен, на котором куки будут доступны (если развернуто на Vercel)
+            path: '/', // Путь, для которого будут доступны куки (корневой путь)
+            secure: true, // HTTPS (требуется для безопасности)
+            sameSite: 'None'
+        });
+
 
         // Отправка JWT-токена как ответ
         res.json({message: 'Регистрация прошла успешно', token});

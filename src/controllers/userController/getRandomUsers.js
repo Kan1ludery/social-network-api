@@ -14,7 +14,7 @@ router.get('/getRandomUsers', authenticateToken, async (req, res) => {
 
         // Получить случайных пользователей, исключая текущего пользователя
         const randomUsers = await usersCollection.aggregate([
-            { $match: { _id: { $ne: userId } } }, // Исключить текущего пользователя
+            { $match: { _id: { $ne: userId }, emailVerified: true } }, // Исключить текущего пользователя
             { $sample: { size: 10 } }, // Выбрать случайных пользователей
             { $project: { _id: 1, username: 1, email: 1, profile: { profileImage: 1 } } } // Выбрать нужные поля
         ]).toArray();

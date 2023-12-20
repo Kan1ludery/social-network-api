@@ -3,6 +3,7 @@ const nodemailer = require("nodemailer");
 const {loadEnv} = require("../../utils/loadEnv");
 loadEnv()
 
+const baseServerUrl = 'yomessage-api.rug'
 // Создайте объект для отправки электронных писем
 const transporter = nodemailer.createTransport({
     service: "Gmail",
@@ -19,7 +20,7 @@ const sendVerificationEmail = async (email, emailVerificationToken) => {
             from: 'YoMessage',
             to: email,
             subject: "Подтверждение почты",
-            text: `Для подтверждения почты перейдите по ссылке: http://localhost:5050/api/confirm?token=${emailVerificationToken}&email=${email}`,
+            text: `Для подтверждения почты перейдите по ссылке: ${baseServerUrl}/api/confirm?token=${emailVerificationToken}&email=${email}`,
         };
         const info = await transporter.sendMail(mailOptions);
         console.log("Письмо успешно отправлено: " + info.response);

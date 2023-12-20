@@ -42,11 +42,13 @@ router.post('/login', async (req, res) => {
         // Отправка токена в куки с HttpOnly (изменить sameSite на 'none', domain на '', secure на 'true', когда выйду на продакшн)
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            maxAge: 30 * 24 * 60 * 60 * 1000,
-            domain: 'localhost',
-            path: '/',
-            secure: false
-        })
+            maxAge: 30 * 24 * 60 * 60 * 1000, // Время жизни куки в миллисекундах (30 дней)
+            domain: '.vercel.app', // Домен, на котором куки будут доступны (если развернуто на Vercel)
+            path: '/', // Путь, для которого будут доступны куки (корневой путь)
+            secure: true, // HTTPS (требуется для безопасности)
+            sameSite: 'None',
+        });
+
         // Успешный вход в систему
         res.json({message: 'Вход выполнен успешно', token});
     } catch (error) {

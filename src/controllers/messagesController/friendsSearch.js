@@ -14,6 +14,9 @@ router.get('/friends-search', authenticateToken, async (req, res) => {
             return res.status(400).json({error: 'Не указано обязательное поле'});
         }
         query = sanitizeInput(query);
+        if (query.length > 75) {
+            return res.status(400).json({error: 'Указанное поле слишком длинное'});
+        }
         // Создаем регулярное выражение для частичного совпадения
         const regex = new RegExp(query, 'i'); // 'i' - игнорирование регистра
 

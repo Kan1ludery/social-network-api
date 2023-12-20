@@ -5,6 +5,9 @@ const connect = require("../dbSafe/db");
 const multer = require("multer");
 const fs = require("fs");
 const {getImageFolderPath} = require("./getImageFolderPath");
+const path = require("path");
+
+const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // Максимальный размер файла в байтах (5MB)
 
 const imageFolderPath = getImageFolderPath()
 const storage = multer.diskStorage({
@@ -15,9 +18,22 @@ const storage = multer.diskStorage({
         cb(null, filename);
     }
 });
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype.startsWith('image/')) {
+        cb(null, true); // Принимаем только изображения
+    } else {
+        cb(new Error('Файл должен быть изображением'));
+    }
+};
 
 const fsPromises = fs.promises;
-const upload = multer({storage: storage});
+const upload = multer({
+    storage: storage,
+    fileFilter: fileFilter,
+    limits: {
+        fileSize: MAX_FILE_SIZE_BYTES,
+    },
+});
 router.post('/uploadImage', authenticateToken, upload.single('image'), async (req, res) => {
     try {
         if (req.file) {
@@ -34,7 +50,7 @@ router.post('/uploadImage', authenticateToken, upload.single('image'), async (re
             if (existingUser.profile.profileImage?.trim()) {
                 const oldImageFileName = existingUser.profile.profileImage;
                 // Полный путь к старой картинке
-                const oldImagePath = `uploads/${oldImageFileName}`;
+                const oldImagePath = path.join(__dirname, `uploads/${oldImageFileName}`);
                 // Асинхронное удаление файла
                 try {
                     await fsPromises.unlink(oldImagePath);
