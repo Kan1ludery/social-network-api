@@ -3,7 +3,7 @@ const nodemailer = require("nodemailer");
 const {loadEnv} = require("../../utils/loadEnv");
 loadEnv()
 
-const baseServerUrl = 'yomessage-api.rug'
+const baseServerUrl = 'https://yomessage-api.ru'
 // Создайте объект для отправки электронных писем
 const transporter = nodemailer.createTransport({
     service: "Gmail",
