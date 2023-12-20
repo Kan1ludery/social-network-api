@@ -65,14 +65,18 @@ const setupSocketThree = (mainSocket) => {
             socket.disconnect();
             return;
         }
-
+        console.log('User connected:', userId); // Выводим информацию о подключенном пользователе
         addUserSocket(userId, socket);
 
-        chatIds.forEach(chatId => createChatRoom(socket, chatId));
+        chatIds.forEach(chatId => {
+            createChatRoom(socket, chatId);
+            console.log(`Created chat room for user ${userId} with chatId ${chatId}`); // Выводим информацию о созданных комнатах чата
+        });
 
         socket.on('message', async (messageData) => {
             try {
                 const { chatId, senderId, message, targetId } = messageData;
+                console.log(`Received message: ${message} from sender ${senderId} in chat ${chatId}`); // Выводим информацию о полученном сообщении
                 if (senderId && chatId && message) {
                     const chatCreationResult = await createChat([senderId, targetId], chatId);
                     if (chatCreationResult) {
