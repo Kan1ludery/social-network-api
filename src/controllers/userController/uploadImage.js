@@ -50,7 +50,7 @@ router.post('/uploadImage', authenticateToken, upload.single('image'), async (re
             if (existingUser.profile.profileImage?.trim()) {
                 const oldImageFileName = existingUser.profile.profileImage;
                 // Полный путь к старой картинке
-                const oldImagePath = path.join(__dirname, `uploads/${oldImageFileName}`);
+                const oldImagePath = `uploads/${oldImageFileName}`
                 // Асинхронное удаление файла
                 try {
                     await fsPromises.unlink(oldImagePath);
