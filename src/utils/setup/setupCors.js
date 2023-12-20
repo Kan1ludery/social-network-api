@@ -1,6 +1,6 @@
 const cors = require("cors");
 const setupCors = (app) => {
-    const allowedOrigins = ['https://social-network-production.up.railway.app/login', 'http://localhost:3000', 'https://social-network-theta-seven.vercel.app'];
+    const allowedOrigins = ['https://social-network-production.up.railway.app', 'http://localhost:3000', 'https://social-network-theta-seven.vercel.app'];
     app.use(cors({
         origin: function (origin, callback) {
             if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
