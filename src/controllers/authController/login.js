@@ -43,7 +43,7 @@ router.post('/login', async (req, res) => {
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             maxAge: 30 * 24 * 60 * 60 * 1000, // Время жизни куки в миллисекундах (30 дней)
-            domain: 'social-network-theta-seven.vercel.app', // Домен, на котором куки будут доступны (если развернуто на Vercel)
+            domain: 'vercel.app', // Домен, на котором куки будут доступны (если развернуто на Vercel)
             path: '/', // Путь, для которого будут доступны куки (корневой путь)
             secure: true, // HTTPS (требуется для безопасности)
             sameSite: 'None',
