@@ -15,11 +15,10 @@ const {generateUId} = require("../../utils/generateUId");
 
 
 // Маршрут для регистрации
-router.post('/register', async (req, res) => {
+router.post('/register', csrfProtection, async (req, res) => {
     try {
         const db = await connect(); // Получение экземпляра базы данных
         const usersCollection = db.collection('users'); // Получение экземпляра коллекции "users"
-        const chatsCollection = db.collection('chats')
         let {username, password, email} = req.body;
         // Проверка, что все обязательные поля переданы
         if (!username || !password || !email) {

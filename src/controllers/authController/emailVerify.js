@@ -70,7 +70,7 @@ router.get("/confirm", async (req, res) => {
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             maxAge: 30 * 24 * 60 * 60 * 1000, // Время жизни куки в миллисекундах (30 дней)
-            domain: '.vercel.app', // Домен, на котором куки будут доступны
+            domain: 'yomessage-api.ru', // Домен, на котором куки будут доступны
             path: '/', // Путь, для которого будут доступны куки (корневой путь)
             secure: true, // HTTPS (требуется для безопасности)
         });
