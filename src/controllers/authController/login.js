@@ -43,7 +43,7 @@ router.post('/login', async (req, res) => {
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             maxAge: 30 * 24 * 60 * 60 * 1000,
-            domain: 'social-network-theta-seven.vercel.app',
+            domain: 'yomessage-api.ru',
             path: '/',
             secure: true,
             sameSite: "none"
