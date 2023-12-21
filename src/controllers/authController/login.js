@@ -36,7 +36,7 @@ router.post('/login', csrfProtection, async (req, res) => {
             return res.status(401).json({error: 'Неверные учетные данные'}); // Неверный  пароль
         }
         // Регистрация jwt token для пользователя
-        const token = jwt.sign({userId: user._id, emailVerified: user.emailVerified}, secretKey, {expiresIn: '15s'}); // Срок действия токена - 1час
+        const token = jwt.sign({userId: user._id, emailVerified: user.emailVerified}, secretKey, {expiresIn: '1h'}); // Срок действия токена - 1час
         //Получение refreshToken с базы данных
         const refreshToken = user.refreshToken
         // Отправка токена в куки с HttpOnly (изменить sameSite на 'none', domain на '', secure на 'true', когда выйду на продакшн)

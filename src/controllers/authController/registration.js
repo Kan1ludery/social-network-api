@@ -13,7 +13,6 @@ const {csrfProtection} = require("../../utils/csrfToken");
 const {generateUId} = require("../../utils/generateUId");
 
 
-
 // Маршрут для регистрации
 router.post('/register', csrfProtection, async (req, res) => {
     try {
@@ -34,7 +33,7 @@ router.post('/register', csrfProtection, async (req, res) => {
 
         // Проверка уникальности имени пользователя и email
         const existingUser = await usersCollection.findOne({$or: [{username: username}, {email: email}]});
-
+        console.log(existingUser)
         if (existingUser) {
             const errors = {};
 
@@ -47,6 +46,7 @@ router.post('/register', csrfProtection, async (req, res) => {
                 } else {
                     errors.email = 'Почта уже занята';
                 }
+            }
             return res.status(400).json(errors);
         }
 
@@ -54,6 +54,7 @@ router.post('/register', csrfProtection, async (req, res) => {
         if (password.length < 8) {
             return res.status(400).json({error: 'Пароль слишком короткий'});
         }
+
         // Хэширование пароля
         const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -86,10 +87,12 @@ router.post('/register', csrfProtection, async (req, res) => {
 
         // Отправка JWT-токена как ответ
         res.json({message: 'Регистрация прошла успешно', token});
-    }} catch (error) {
+    } catch
+        (error) {
         console.error('Ошибка при регистрации', error);
         res.status(500).json({error: 'Ошибка при регистрации'});
     }
-});
+})
+;
 
 module.exports = router;
