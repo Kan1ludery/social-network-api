@@ -7,13 +7,12 @@ const router = express.Router();
 router.post('/logout', (req, res) => {
     try {
         // Очистка куки
-        res.clearCookie('refreshToken', { path: '/', domain: 'yomessage-api.ru' });
-        res.clearCookie('_csrf', { path: '/', domain: 'yomessage-api.ru' });
+        res.clearCookie('refreshToken', {path: '/', domain: 'yomessage-api.ru', secure: true, httpOnly: true})
+        res.clearCookie('_csrf', {path: '/', domain: 'yomessage-api.ru', secure: true, httpOnly: true});
         res.sendStatus(200); // Отправьте успешный статус в ответе
-    }
-    catch (error) {
+    } catch (error) {
         console.error('Ошибка при выходе:', error);
-        res.status(500).json({ error: 'Ошибка при выходе' });
+        res.status(500).json({error: 'Ошибка при выходе'});
     }
 });
 
