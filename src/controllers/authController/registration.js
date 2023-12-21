@@ -43,8 +43,11 @@ router.post('/register', async (req, res) => {
                 errors.username = 'Имя пользователя уже занято';
             }
             if (existingUser.email === email) {
-                errors.email = 'Почта уже занята';
-            }
+                if ((email.match(/\./g) || []).length > 1) {
+                    errors.email = 'Email should contain only one domain';
+                } else {
+                    errors.email = 'Почта уже занята';
+                }
             return res.status(400).json(errors);
         }
 
@@ -63,69 +66,31 @@ router.post('/register', async (req, res) => {
         const expirationTime = new Date();
         expirationTime.setMinutes(expirationTime.getMinutes() + 15); // Токен действителен 15 минут
 
-        // Генерация refresh-токена для замены старому jwt-токену
-        const refreshToken = generateUId(); // Генерация Refresh Token
-        const expirationTimeRefresh = new Date();
-        expirationTimeRefresh.setDate(expirationTimeRefresh.getDate() + 30); // Refresh Token действителен 30 дней
-
         // Сохранение информации о пользователе в базе данных
         const newUser = {
             _id: userId,
             username,
             password: hashedPassword,
             email,
-            role: 'user',
             emailVerified: false, // Статус почты (не проверенная(false)/проверенная(true))
             emailVerificationToken: emailVerificationToken, // Поле для создания токена(подтверждения почты)
             confirmationAttempts: 0, // Поле для отслеживания попыток
-            expirationTime: expirationTime, // Добавьте поле для срока действия токена
-            isBlocked: false,
-            refreshToken: refreshToken, // Сохранение Refresh Token
-            expirationTimeRefresh: expirationTimeRefresh, // Срок действия Refresh Token
-            profile: {
-                profileImage: '', // Замените на фактический URL изображения
-                states: {}, // Здесь будет список состояний
-                socialLinks: {}, // Ссылки на соц. сети.
-                description: '', // Описание профиля
-            },
-
+            expirationTime: expirationTime,
         };
         await usersCollection.insertOne(newUser);
 
-        // Создание персонального чата
-        const personalChat = {
-            chatId: generateUId(),
-            title: `Личный чат ${newUser.username}`,
-            participants: [newUser._id],
-            messages: [],
-            lastMessage: null,
-            created_at: new Date(),
-            isPersonal: true,
-        };
-        await chatsCollection.insertOne(personalChat)
         // Генерация JWT-токена
-        const token = jwt.sign({userId: newUser._id, emailVerified: newUser.emailVerified}, secretKey, {expiresIn: '1h'});
+        const token = jwt.sign({userId: userId, emailVerified: false}, secretKey, {expiresIn: '1h'});
 
         // Отправка письма с подтверждением
-        await sendVerificationEmail(newUser.email, emailVerificationToken);
-
-        // Отправка токена в куки с HttpOnly
-        res.cookie('refreshToken', refreshToken, {
-            httpOnly: true,
-            maxAge: 30 * 24 * 60 * 60 * 1000, // Время жизни куки в миллисекундах (30 дней)
-            domain: '.railway.app', // Домен, на котором куки будут доступны (если развернуто на Vercel)
-            path: '/', // Путь, для которого будут доступны куки (корневой путь)
-            secure: true, // HTTPS (требуется для безопасности)
-            sameSite: 'None'
-        });
+        await sendVerificationEmail(email, emailVerificationToken);
 
         // Отправка JWT-токена как ответ
         res.json({message: 'Регистрация прошла успешно', token});
-    } catch (error) {
+    }} catch (error) {
         console.error('Ошибка при регистрации', error);
         res.status(500).json({error: 'Ошибка при регистрации'});
     }
-
 });
 
 module.exports = router;

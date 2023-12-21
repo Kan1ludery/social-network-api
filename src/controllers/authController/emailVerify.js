@@ -6,6 +6,7 @@ const router = express.Router();
 loadEnv()
 const jwt = require("jsonwebtoken");
 const path = require("path");
+const {generateUId} = require("../../utils/generateUId");
 const secretKey = process.env.SECRET_KEY;
 
 
@@ -13,12 +14,13 @@ router.get("/confirm", async (req, res) => {
     const {token, email} = req.query; // Получаем токен и email из query параметров (URL)
     try {
         const db = await connect(); // Получение экземпляра базы данных
-        const collection = db.collection('users'); // Получение экземпляра коллекции "users"
+        const usersCollection = db.collection('users'); // Получение экземпляра коллекции "users"
+        const chatsCollection = db.collection('chats')
         // Поиск пользователя по токену и email
-        const user = await collection.findOne({emailVerificationToken: token, email: email});
+        const user = await usersCollection.findOne({emailVerificationToken: token, email: email});
         // Проверка токена и email
         if (!user) {
-            return res.send("Ошибка при подтверждении почты: неверный токен или email.");
+            return res.send("Ошибка при подтверждении почты: неверный токен.");
         }
         // Проверка срока действия токена
         const currentTime = new Date() // Установка временной зоны
@@ -26,13 +28,52 @@ router.get("/confirm", async (req, res) => {
             return res.status(403).send("Срок действия токена истек."); // Срок действия подтверждения почты истёк*
         }
         // Проверка критических ошибок при запросе
-        if (user.confirmationAttempts > 3) {
+        if (user.confirmationAttempts > 2) {
             const errorText = "Превышено количество попыток подтверждения.";
             res.render('error', { error: errorText });
             return res.status(403).send({error: "Превышено количество попыток подтверждения."});
         }
+        // Генерация refresh-токена для замены старому jwt-токену
+        const refreshToken = generateUId(); // Генерация Refresh Token
+        const expirationTimeRefresh = new Date();
+        expirationTimeRefresh.setDate(expirationTimeRefresh.getDate() + 30); // Refresh Token действителен 30 дней
+
         // Обновление статуса подтверждения почты
-        await collection.updateOne({_id: user._id}, {$set: {emailVerified: true}, $inc: {confirmationAttempts: 1}});
+        await usersCollection.updateOne({_id: user._id}, {
+            $set: {
+                emailVerified: true,
+                role: 'user',
+                isBlocked: false,
+                refreshToken: refreshToken, // Сохранение Refresh Token
+                expirationTimeRefresh: expirationTimeRefresh, // Срок действия Refresh Token
+                profile: {
+                    profileImage: '', // Замените на фактический URL изображения
+                    states: {}, // Здесь будет список состояний
+                    socialLinks: {}, // Ссылки на соц. сети.
+                    description: '', // Описание профиля
+                },
+            }
+        });
+        // Создание персонального чата
+        const personalChat = {
+            chatId: generateUId(),
+            title: `Личный чат ${user.username}`,
+            participants: [user._id],
+            messages: [],
+            lastMessage: null,
+            created_at: new Date(),
+            isPersonal: true,
+        };
+        await chatsCollection.insertOne(personalChat)
+
+        // Отправка токена в куки с HttpOnly
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            maxAge: 30 * 24 * 60 * 60 * 1000, // Время жизни куки в миллисекундах (30 дней)
+            domain: '.vercel.app', // Домен, на котором куки будут доступны
+            path: '/', // Путь, для которого будут доступны куки (корневой путь)
+            secure: true, // HTTPS (требуется для безопасности)
+        });
         // Отправка события по сокету при успешном подтверждении почты
 
         const io = req.app.get('socketIO'); // Получаем объект io из приложения Express
