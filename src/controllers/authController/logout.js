@@ -7,8 +7,8 @@ const router = express.Router();
 router.post('/logout', (req, res) => {
     try {
         // Очистка куки
-        res.clearCookie('refreshToken');
-        res.clearCookie('_csrf');
+        res.clearCookie('refreshToken', { path: '/', domain: 'yomessage-api.ru' });
+        res.clearCookie('_csrf', { path: '/', domain: 'yomessage-api.ru' });
         res.sendStatus(200); // Отправьте успешный статус в ответе
     }
     catch (error) {
