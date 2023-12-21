@@ -1,7 +1,6 @@
 // login.js
 const {loadEnv} = require("../../utils/loadEnv");
 loadEnv()
-import Cookies from 'js-cookie';
 const express = require('express');
 const router = express.Router();
 const connect = require('../dbSafe/db');
@@ -41,13 +40,11 @@ router.post('/login', async (req, res) => {
         //Получение refreshToken с базы данных
         const refreshToken = user.refreshToken
         // Отправка токена в куки с HttpOnly (изменить sameSite на 'none', domain на '', secure на 'true', когда выйду на продакшн)
-        Cookies.set('refreshToken', refreshToken, {
-            expires: 30, // Время жизни куки в днях
-            domain: '.vercel.app',
-            secure: true,
-            path: '/',
+        res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            // другие параметры по необходимости
+            maxAge: 30 * 24 * 60 * 60 * 1000, // Время жизни куки в миллисекундах (30 дней)
+            domain: '.vercel.app', // Домен, на котором куки будут доступны (если развернуто на Vercel)
+            path: '/', // Путь, для которого будут доступны куки (корневой путь)
         });
 
         // Успешный вход в систему
