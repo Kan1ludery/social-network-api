@@ -46,7 +46,7 @@ router.post('/login', csrfProtection, async (req, res) => {
             domain: 'yomessage-api.ru',
             path: '/',
             secure: true,
-            sameSite: "none"
+            sameSite: 'lax'
         });
 
         // Успешный вход в систему
