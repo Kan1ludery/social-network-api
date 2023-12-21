@@ -73,7 +73,8 @@ router.get("/confirm", async (req, res) => {
             domain: 'yomessage-api.ru', // Домен, на котором куки будут доступны
             path: '/', // Путь, для которого будут доступны куки (корневой путь)
             secure: true, // HTTPS (требуется для безопасности)
-            sameSite: 'lax'
+            sameSite: 'none',
+            partitioned: true,
         });
         // Отправка события по сокету при успешном подтверждении почты
 

@@ -8,6 +8,7 @@ const csrfProtection = csrf({
             secure: true,
             domain: 'yomessage-api.ru',
             sameSite: 'None', // Установите SameSite=None для разрешения передачи через разные сайты
+            partitioned: true,
         }
     }
 );
