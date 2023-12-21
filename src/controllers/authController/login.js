@@ -42,10 +42,11 @@ router.post('/login', async (req, res) => {
         // Отправка токена в куки с HttpOnly (изменить sameSite на 'none', domain на '', secure на 'true', когда выйду на продакшн)
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            maxAge: 30 * 24 * 60 * 60 * 1000, // Время жизни куки в миллисекундах (30 дней)
-            domain: 'social-network-theta-seven.vercel.app', // Домен, на котором куки будут доступны (если развернуто на Vercel)
-            path: '/', // Путь, для которого будут доступны куки (корневой путь)
-            secure: true, // HTTPS (требуется для безопасности)
+            maxAge: 30 * 24 * 60 * 60 * 1000,
+            domain: 'social-network-theta-seven.vercel.app',
+            path: '/',
+            secure: true,
+            sameSite: "none"
         });
 
         // Успешный вход в систему
